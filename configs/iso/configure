@@ -1,0 +1,65 @@
+#!/bin/sh -e
+TARGET="$PWD/build"
+
+if [ -n "$1" ]; then
+  if [ "$1" != "deps" ]; then
+    echo "unknown command: $1"
+    exit 1
+  fi
+  doas apk add alpine-sdk mtools dosfstools alpine-conf xorriso squashfs-tools grub grub-efi abuild abuild-rootbld
+fi
+
+mkdir -p "$TARGET"
+
+NAME="baseline"
+ARCH="aarch64"
+TAG="3.21"
+VERS="$TAG.2"
+ALPINE="https://dl-cdn.alpinelinux.org/alpine/v$TAG"
+BUILD="$TARGET"
+test -d "$BUILD"
+WORKDIR="$(mktemp -d -t iso-image.XXXXXX)"
+trap 'rm -rf $WORKDIR' INT EXIT
+CACHE="$BUILD/cache"
+mkdir -p "$CACHE"
+
+cp -r . "$WORKDIR/"
+SCRIPTS="$WORKDIR/scripts"
+PROFILE="mkimg.$NAME.sh"
+
+{
+  cat << EOF
+profile_$NAME() {
+  hostname="$NAME"
+  modloop_sign=yes
+  initfs_cmdline="modules=loop,squashfs,sd-mod,usb-storage quiet"
+  initfs_features="ata base bootchart cdrom ext4 nvme squashfs usb virtio"
+  grub_mod="all_video disk part_gpt part_msdos linux normal configfile search search_label efi_gop fat iso9660 cat echo ls test true help gzio"
+  profile_abbrev="std"
+  image_ext="iso"
+  output_format="iso"
+  title='$NAME'
+  desc='$NAME personal spin iso'
+  kernel_flavors='virt'
+  profile_abbrev='$NAME'
+  arch='$ARCH'
+  kernel_addons=
+EOF
+  tr '\n' ' ' < "../apkovl/etc/apk/world" | sed 's/^/  apks="/g;s/ $/"/g'
+  echo
+  echo "}"
+} > "$SCRIPTS/$PROFILE"
+
+(
+  cd "$WORKDIR" && "scripts/mkimage.sh" \
+    --workdir "$CACHE" \
+    --outdir "$BUILD" \
+    --arch "$ARCH" \
+    --profile "$NAME" \
+    --tag "$VERS" \
+    --hostkeys \
+    --repository "$ALPINE/main" \
+    --repository "$ALPINE/community" \
+)
+
+cp "$TARGET/alpine-"*.iso "$TARGET/$(date +%Y%m%d.%H%M).alpine.iso"
