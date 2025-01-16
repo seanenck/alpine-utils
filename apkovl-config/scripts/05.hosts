@@ -1,0 +1,7 @@
+#!/bin/sh -e
+{
+  cat << EOF
+127.0.0.1	$OVL_HOSTNAME.localdomain $OVL_HOSTNAME localhost.localdomain localhost
+::1		localhost localhost.localdomain
+EOF
+} > "$1/etc/hosts"

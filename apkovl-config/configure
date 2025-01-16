@@ -1,0 +1,5 @@
+#!/bin/sh -e
+BUILD="build"
+rm -rf "$BUILD"
+mkdir -p "$BUILD"
+../bin/genapkovl -h dev -o "$BUILD" -w "etc/apk/world" -f "$(date +%Y%m%d.%H%M).apkovl.img"

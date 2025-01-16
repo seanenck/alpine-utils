@@ -1,0 +1,29 @@
+#!/bin/sh -e
+[ -e "/var/.apkenv" ] && source /var/.apkenv
+# default to 'alpine' if not environment set
+[ -z "$APKOVL_USER_PASS" ] && APKOVL_USER_PASS='$6$sCvBI2aE/vXDEY73$Pwmg/pTlib6HSkOb87w3K2AETFIBlUipNTxfnRvSoZdyMub7ufZCYlhdWK.Oph7kerIA.6RIBpflMkg0yRw2W/'
+setup-keymap us us &
+ln -sf "/usr/share/zoneinfo/US/Michigan" /etc/localtime
+adduser -D --home /home/enck --shell /bin/bash --no-create-home --uid 1000 --gecos "Sean Enck" enck
+adduser enck wheel
+adduser enck video
+adduser enck audio
+adduser enck netdev
+adduser enck abuild
+echo "enck:$APKOVL_USER_PASS" | chpasswd -e
+echo "root:$APKOVL_USER_PASS" | chpasswd -e
+VIRTIO="/sys/fs/virtiofs"
+if [ -e "$VIRTIO" ]; then
+  for TAG in $(find "$VIRTIO" -name "tag"); do
+    VALUE=$(cat "$TAG")
+    TARGET="/home/enck/$VALUE"
+    if [ -d "$TARGET" ]; then
+      mount -t virtiofs "$VALUE" "$TARGET"
+    fi
+  done
+fi
+USRBIN=""
+[ -d "/var/usrbin" ] && USRBIN=$(ls /var/usrbin | sort -r | head)
+[ -n "$USRBIN" ] && mount "/var/usrbin/$USRBIN" /usr/local
+[ -e "/var/swap.img" ] && swapon /var/swap.img
+wait
