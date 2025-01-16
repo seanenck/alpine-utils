@@ -1,0 +1,8 @@
+#!/bin/sh -e
+BUILD="build"
+rm -rf "$BUILD"
+mkdir -p "$BUILD"
+CACHE="$HOME/.cache/pkgversions/builds/"
+mkdir -p "$CACHE"
+../../bin/genusrbin -c "$CACHE" -s "$PWD/src" -t "$PWD/$BUILD" -w "$CACHE" -o "$BUILD" -a aarch64 -f "$(date +%Y%m%d.%H%M.usrbin.img)"
+echo "success"
