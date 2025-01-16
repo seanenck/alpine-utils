@@ -1,0 +1,11 @@
+#!/bin/sh -e
+TARGET="build"
+rm -rf "$TARGET"
+mkdir -p "$TARGET"
+
+VAR="var.img"
+USERS="home.img"
+(cd "$TARGET" && dd if=/dev/zero of="$VAR" bs=1G count=5)
+(cd "$TARGET" && dd if=/dev/zero of="$USERS" bs=1G count=10)
+(cd "$TARGET" && mkfs.ext4 -L isdata "$VAR")
+(cd "$TARGET" && mkfs.ext4 -L ishome "$USERS")
