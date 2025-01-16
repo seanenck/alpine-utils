@@ -23,7 +23,7 @@ if [ -e "$VIRTIO" ]; then
   done
 fi
 USRBIN=""
-[ -d "/var/usrbin" ] && USRBIN=$(ls /var/usrbin | sort -r | head)
+[ -d "/var/usrbin" ] && USRBIN=$(ls /var/usrbin | sort -r | head -n 1)
 [ -n "$USRBIN" ] && mount "/var/usrbin/$USRBIN" /usr/local
 [ -e "/var/swap.img" ] && swapon /var/swap.img
 wait
