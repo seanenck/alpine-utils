@@ -1,0 +1,9 @@
+#!/bin/sh -e
+VERSION=0.10.3
+FILE=nvim.tar.gz
+curl -L --silent "https://github.com/neovim/neovim/archive/v$VERSION.tar.gz" > "$FILE"
+tar xf "$FILE"
+TO="neovim-$VERSION"
+(cd "$TO" && make CMAKE_BUILD_TYPE=MinSizeRel)
+(cd "$TO" && cpack --config build/CPackConfig.cmake -G TGZ)
+(cd "$TO" && ls -alh)
