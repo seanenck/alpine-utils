@@ -1,5 +1,6 @@
 #!/bin/sh -e
-[ -e "/var/.apkenv" ] && source /var/.apkenv
+VAR=/var/alpine
+[ -e "$VAR/env" ] && source "$VAR/env"
 # default to 'alpine' if not environment set
 [ -z "$APKOVL_USER_PASS" ] && APKOVL_USER_PASS='$6$sCvBI2aE/vXDEY73$Pwmg/pTlib6HSkOb87w3K2AETFIBlUipNTxfnRvSoZdyMub7ufZCYlhdWK.Oph7kerIA.6RIBpflMkg0yRw2W/'
 setup-keymap us us &
@@ -23,7 +24,7 @@ if [ -e "$VIRTIO" ]; then
   done
 fi
 USRBIN=""
-[ -d "/var/usrbin" ] && USRBIN=$(ls /var/usrbin | sort -r | head -n 1)
-[ -n "$USRBIN" ] && mount "/var/usrbin/$USRBIN" /usr/local
-[ -e "/var/swap.img" ] && swapon /var/swap.img
+[ -d "$VAR/usrbin" ] && USRBIN=$(ls $VAR/usrbin | sort -r | head -n 1)
+[ -n "$USRBIN" ] && mount "$VAR/usrbin/$USRBIN" /usr/local
+[ -e "$VAR/swap.img" ] && swapon "$VAR/swap.img"
 wait

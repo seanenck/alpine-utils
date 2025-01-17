@@ -7,5 +7,6 @@ mkdir -p "$CACHE"
 IMG="$(date +%Y%m%d.%H%M.usrbin.img)"
 ../../bin/genusrbin -c "$CACHE" -s "$PWD/src" -t "$PWD/$BUILD" -w "$CACHE" -o "$BUILD" -a aarch64 -f "$IMG"
 echo "success"
-[ -d "/var/usrbin" ] && echo && echo "deploying..." && doas cp "$BUILD/$IMG" /var/usrbin/
-[ -d "/var/usrbin" ] && doas find /var/usrbin/ -type f -mtime +1 -delete
+VAR=/var/alpine
+[ -d "$VAR/usrbin" ] && echo && echo "deploying..." && doas cp "$BUILD/$IMG" "$VAR/usrbin/"
+[ -d "$VAR/usrbin" ] && doas find "$VAR/usrbin/" -type f -mtime +1 -delete
