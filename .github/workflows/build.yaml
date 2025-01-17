@@ -18,22 +18,15 @@ jobs:
   neovim:
     runs-on: ubuntu-24.04-arm
     name: build
-    container:
-      image: alpine:latest
-      volumes:
-        - /data/builddata
     steps:
-      - name: "install base deps"
-        run: apk add git make alpine-sdk curl cmake gettext-dev gperf libtermkey-dev libuv-dev libvterm-dev lua-luv-dev lua5.1-mpack msgpack-c-dev samurai tree-sitter-dev unibilium-dev
+      - uses: actions/checkout@v4
       - name: "clone root"
-        run: git clone --depth=1 "https://github.com/seanenck/alpine-utils"
-      - name: "run neovim build"
-        run: cd alpine-utils/package/neovim && ./configure
-      - name: "cp out"
-        run: cp alpine-utils/package/neovim/nvim-linux64.tar.gz /data/builddata/
-  artifacts:
-    needs: neovim
-    runs-on: ubuntu-latest
-    name: artifacts
-    steps:
-      - run: ls /data/builddata
+        uses: docker://alpine:latest
+        with:
+          args: cd package/neovim && ./configure
+      - name: "artifacts"
+        uses: actions/upload-artifact@v4
+        with:
+          name: neovim-data
+          path: |
+            package/neovim/nvim-*.tar.gz
