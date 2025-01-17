@@ -27,4 +27,10 @@ USRBIN=""
 [ -d "$VAR/usrbin" ] && USRBIN=$(ls $VAR/usrbin | sort -r | head -n 1)
 [ -n "$USRBIN" ] && mount "$VAR/usrbin/$USRBIN" /usr/local
 [ -e "$VAR/swap.img" ] && swapon "$VAR/swap.img"
+[ -d "/var/cache/apk" ] && mkdir -p /etc/apk/cache && mount --bind /var/cache/apk /etc/apk/cache
+{
+  echo "-> usrbin: $USRBIN"
+  echo
+} >> /etc/motd
+
 wait

@@ -2,4 +2,3 @@
 /dev/usbdisk	/media/usb	vfat	noauto,ro 0 0
 LABEL=isdata    /var                      ext4       defaults 1 2
 LABEL=ishome    /home                     ext4       defaults 0 0
-/var/cache/apk	/etc/apk/cache	none	defaults,bind	0	0
