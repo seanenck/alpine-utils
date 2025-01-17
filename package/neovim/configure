@@ -7,3 +7,4 @@ TO="neovim-$VERSION"
 (cd "$TO" && make CMAKE_BUILD_TYPE=MinSizeRel)
 (cd "$TO" && cpack --config build/CPackConfig.cmake -G TGZ)
 (cd "$TO/build" && ls -alh)
+cp "$TO/build/nvim-linux64.tar.gz" .

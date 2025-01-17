@@ -30,7 +30,7 @@ jobs:
       - name: "run neovim build"
         run: cd alpine-utils/package/neovim && ./configure
       - name: "cp out"
-        run: cp alpine-utils/package/neovim/build/nvim-linux64.tar.gz /data/builddata/
+        run: cp alpine-utils/package/neovim/nvim-linux64.tar.gz /data/builddata/
   artifacts:
     needs: neovim
     runs-on: ubuntu-latest
