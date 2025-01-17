@@ -1,0 +1,9 @@
+FROM alpine:latest
+ARG TAG
+
+RUN apt-get update -y && apt-get install -y sudo
+RUN apk add cmake make curl
+RUN curl -L "https://github.com/neovim/neovim/archive/v0.10.3.tar.gz" --output nvim.tar.gz
+RUN tar xf nvim.tar.gz
+RUN ls
+RUN ./scripts/genappimage.sh nightly
