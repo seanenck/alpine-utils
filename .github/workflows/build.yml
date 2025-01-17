@@ -1,11 +1,11 @@
-name: arm
+name: build
 on:
   push:
   pull_request:
   workflow_dispatch:
 
 jobs:
-  linux:
+  neovim:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
