@@ -1,0 +1,11 @@
+#!/bin/sh -e
+apk add git make alpine-sdk curl cmake gettext-dev gperf libtermkey-dev libuv-dev libvterm-dev lua-luv-dev lua5.1-mpack msgpack-c-dev samurai tree-sitter-dev unibilium-dev
+VERSION=0.10.3
+FILE=nvim.tar.gz
+curl -L --silent "https://github.com/neovim/neovim/archive/v$VERSION.tar.gz" > "$FILE"
+tar xf "$FILE"
+TO="neovim-$VERSION"
+(cd "$TO" && make CMAKE_BUILD_TYPE=MinSizeRel)
+(cd "$TO" && cpack --config build/CPackConfig.cmake -G TGZ)
+(cd "$TO/build" && ls -alh)
+cp "$TO/build/nvim-linux64.tar.gz" .
