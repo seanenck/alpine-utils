@@ -22,9 +22,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: "clone root"
         uses: docker://alpine:latest
-        working-directory: package/neovim
-        with:
-          args: ./configure
+        run: cd package/neovim && ./configure
       - name: "artifacts"
         uses: actions/upload-artifact@v4
         with:
