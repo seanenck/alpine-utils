@@ -9,5 +9,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: docker buildx create --use
-      - run: docker buildx build --platform linux/arm64 --build-arg="TAG=0.10.3" --output build/nvim-linux64.tar.gz -f .github/workflows/Containerfile
+      - run: docker buildx build --platform linux/arm64 --build-arg="TAG=0.10.3" --output build/nvim-linux64.tar.gz -f .github/workflows/Containerfile .
       - run: ls
