@@ -23,4 +23,4 @@ jobs:
       - name: "clone root"
         run: git clone --depth=1 "https://github.com/seanenck/alpine-utils"
       - name: "run neovim build"
-        run: cd alpine-utils/neovim && ./configure
+        run: cd alpine-utils/package/neovim && ./configure
