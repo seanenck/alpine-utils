@@ -4,7 +4,7 @@ ARG TAG
 RUN mkdir -p /app
 WORKDIR /app
 
-RUN apk add cmake make curl
+RUN apk add cmake make curl alpine-sdk
 RUN curl -L "https://github.com/neovim/neovim/archive/v$TAG.tar.gz" --output nvim.tar.gz
 RUN tar xf nvim.tar.gz
 WORKDIR "/app/neovim-$TAG"
