@@ -2,8 +2,9 @@ name: build
 
 on:
   push:
-    tags:
-      - '*'
+    branches:
+      - master
+  workflow_dispatch:
 
 permissions:
   contents: write
