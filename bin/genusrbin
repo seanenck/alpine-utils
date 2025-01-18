@@ -57,7 +57,6 @@ mkdir -p "$PKGS_BIN" "$PKGS_LIB" "$PKGS_WD" "$PKGS_COMP" "$OUT"
 export PKGS_ARCH="$ARCH"
 [ "$PKGS_ARCH" = "aarch64" ] && export PKGS_ALTARCH=arm64
 export PKGS_LIBC=musl
-export PKGS_OS=linux
 
 export PATH="$PKGS_BIN:$PATH"
 for SRC in "$SOURCES/"*.sh; do
