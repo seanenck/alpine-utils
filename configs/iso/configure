@@ -10,7 +10,7 @@ if [ -n "$1" ]; then
   if command -v doas > /dev/null; then
     DOAS=doas
   fi
-  "$DOAS" apk add alpine-sdk mtools dosfstools alpine-conf xorriso squashfs-tools grub grub-efi abuild abuild-rootbld
+  $DOAS apk add alpine-sdk mtools dosfstools alpine-conf xorriso squashfs-tools grub grub-efi abuild abuild-rootbld
 fi
 
 mkdir -p "$TARGET"
