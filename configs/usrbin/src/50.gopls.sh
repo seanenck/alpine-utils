@@ -3,7 +3,10 @@ VERSION=0.17.1
 FILE="$PKGS_WD/$VERSION.gopls.tar.gz"
 HASH="5794ebd"
 
-_download_if_not "https://github.com/golang/tools/archive/gopls/v$VERSION.tar.gz" "$FILE" "$HASH"
+download-and-check \
+  -u "https://github.com/golang/tools/archive/gopls/v$VERSION.tar.gz" \
+  -f "$FILE" \
+  -h "$HASH"
 
 tar xf "$FILE" -C "$PKGS_LIB"
 TO="$PKGS_LIB/tools-gopls-v$VERSION"

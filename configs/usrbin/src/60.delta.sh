@@ -3,7 +3,10 @@ VERSION=0.18.2
 FILE="$PKGS_WD/$VERSION.delta.tar.gz"
 HASH="adf7674"
 
-_download_if_not "https://github.com/dandavison/delta/releases/download/$VERSION/delta-$VERSION-$PKGS_ARCH-unknown-linux-gnu.tar.gz" "$FILE" "$HASH"
+download-and-check \
+  -u "https://github.com/dandavison/delta/releases/download/$VERSION/delta-$VERSION-$PKGS_ARCH-unknown-linux-gnu.tar.gz" \
+  -f "$FILE" \
+  -h "$HASH"
 
 TO="$PKGS_LIB/delta"
 mkdir -p "$TO"

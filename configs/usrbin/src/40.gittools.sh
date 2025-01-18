@@ -3,7 +3,10 @@ VERSION=0.1.8
 FILE="$PKGS_WD/$VERSION.gittools.tar.gz"
 HASH="1a9f8b1"
 
-_download_if_not "https://github.com/seanenck/git-tools/archive/v$VERSION.tar.gz" "$FILE" "$HASH"
+download-and-check \
+  -u "https://github.com/seanenck/git-tools/archive/v$VERSION.tar.gz" \
+  -f "$FILE" \
+  -h "$HASH"
 
 tar xf "$FILE" -C "$PKGS_LIB"
 TO="$PKGS_LIB/git-tools-$VERSION"

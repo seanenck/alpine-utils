@@ -3,7 +3,10 @@ VERSION=1.2.1
 FILE="$PKGS_WD/$VERSION.age.tar.gz"
 HASH="93bd89a"
 
-_download_if_not "https://github.com/FiloSottile/age/archive/v$VERSION.tar.gz" "$FILE" "$HASH"
+download-and-check \
+  -u "https://github.com/FiloSottile/age/archive/v$VERSION.tar.gz" \
+  -f "$FILE" \
+  -h "$HASH"
 
 tar xf "$FILE" -C "$PKGS_LIB"
 TO="$PKGS_LIB/age-$VERSION"

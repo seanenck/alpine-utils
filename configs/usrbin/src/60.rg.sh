@@ -3,7 +3,10 @@ VERSION=14.1.1
 FILE="$PKGS_WD/$VERSION.rg.tar.gz"
 HASH="c827481"
 
-_download_if_not "https://github.com/BurntSushi/ripgrep/releases/download/$VERSION/ripgrep-$VERSION-$PKGS_ARCH-unknown-linux-gnu.tar.gz" "$FILE" "$HASH"
+download-and-check \
+  -u "https://github.com/BurntSushi/ripgrep/releases/download/$VERSION/ripgrep-$VERSION-$PKGS_ARCH-unknown-linux-gnu.tar.gz" \
+  -f "$FILE" \
+  -h "$HASH"
 
 TO="$PKGS_LIB/rg"
 mkdir -p "$TO"

@@ -3,7 +3,10 @@ VERSION=1.23.5
 HASH="47c84d3"
 FILE="$PKGS_WD/$VERSION.go.tar.gz"
 
-_download_if_not "https://go.dev/dl/go$VERSION.linux-$PKGS_ALTARCH.tar.gz" "$FILE" "$HASH"
+download-and-check \
+  -u "https://go.dev/dl/go$VERSION.linux-$PKGS_ALTARCH.tar.gz" \
+  -f "$FILE" \
+  -h "$HASH"
 
 tar xf "$FILE" -C "$PKGS_LIB"
 (cd "$PKGS_BIN" && ln -sf "../$PKGS_LIB_DIR/go/bin/go" go)

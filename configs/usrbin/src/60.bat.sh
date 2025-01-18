@@ -3,7 +3,10 @@ VERSION=0.25.0
 FILE="$PKGS_WD/$VERSION.bat.tar.gz"
 HASH="ee0f12c"
 
-_download_if_not "https://github.com/sharkdp/bat/releases/download/v$VERSION/bat-v$VERSION-$PKGS_ARCH-unknown-linux-$PKGS_LIBC.tar.gz" "$FILE" "$HASH"
+download-and-check \
+  -u "https://github.com/sharkdp/bat/releases/download/v$VERSION/bat-v$VERSION-$PKGS_ARCH-unknown-linux-$PKGS_LIBC.tar.gz" \
+  -f "$FILE" \
+  -h "$HASH"
 
 TO="$PKGS_LIB/bat"
 mkdir -p "$TO"

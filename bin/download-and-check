@@ -1,0 +1,36 @@
+#!/bin/sh -e
+HASH=""
+FILE=""
+URL=""
+while getopts "f:u:h:" opt ; do
+  case $opt in
+    f) FILE="$OPTARG";;
+    u) URL="$OPTARG";;
+    h) HASH="$OPTARG";;
+    *)
+      echo "unknown arg $opt"
+      exit 1
+      ;;
+  esac
+done
+
+[ -z "$URL" ] && echo "url required" && exit 1
+[ -z "$FILE" ] && echo "file required" && exit 1
+[ -z "$HASH" ] && echo "hash required" && exit 1
+
+
+NEEDS=1
+if [ -e "$FILE" ]; then
+  if file "$FILE" | grep -q "compressed data"; then
+    NEEDS=0
+  fi
+fi
+if [ "$NEEDS" -eq 1 ]; then
+  echo "downloading: $URL"
+  curl --silent -L "$URL" > "$FILE"
+fi
+
+CURHASH=$(sha256sum "$FILE" | cut -c 1-7)
+[ "$CURHASH" != "$HASH" ] && echo "hash mismatch ($HASH != $CURHASH)" && exit 1
+
+exit 0

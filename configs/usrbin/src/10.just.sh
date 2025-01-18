@@ -3,7 +3,10 @@ VERSION=1.38.0
 FILE="$PKGS_WD/$VERSION.just.tar.gz"
 HASH="efded3b"
 
-_download_if_not "https://github.com/casey/just/releases/download/$VERSION/just-$VERSION-$PKGS_ARCH-unknown-linux-$PKGS_LIBC.tar.gz" "$FILE" "$HASH"
+download-and-check \
+  -u "https://github.com/casey/just/releases/download/$VERSION/just-$VERSION-$PKGS_ARCH-unknown-linux-$PKGS_LIBC.tar.gz" \
+  -f "$FILE" \
+  -h "$HASH"
 
 TO="$PKGS_LIB/just"
 mkdir -p "$TO"

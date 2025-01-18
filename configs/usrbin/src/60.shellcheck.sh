@@ -3,7 +3,10 @@ VERSION=0.10.0
 FILE="$PKGS_WD/$VERSION.shellcheck.tar.xz"
 HASH="324a7e8"
 
-_download_if_not "https://github.com/koalaman/shellcheck/releases/download/v$VERSION/shellcheck-v$VERSION.linux.$PKGS_ARCH.tar.xz" "$FILE" "$HASH"
+download-and-check \
+  -u "https://github.com/koalaman/shellcheck/releases/download/v$VERSION/shellcheck-v$VERSION.linux.$PKGS_ARCH.tar.xz" \
+  -f "$FILE" \
+  -h "$HASH"
 
 tar xf "$FILE" -C "$PKGS_LIB"
 TO="$PKGS_LIB/shellcheck-v$VERSION"

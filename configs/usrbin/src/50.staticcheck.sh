@@ -3,7 +3,10 @@ VERSION=2024.1.1
 FILE="$PKGS_WD/$VERSION.staticcheck.tar.gz"
 HASH="fa0e530"
 
-_download_if_not "https://github.com/dominikh/go-tools/archive/$VERSION.tar.gz" "$FILE" "$HASH"
+download-and-check \
+  -u "https://github.com/dominikh/go-tools/archive/$VERSION.tar.gz" \
+  -f "$FILE" \
+  -h "$HASH"
 
 tar xf "$FILE" -C "$PKGS_LIB"
 TO="$PKGS_LIB/go-tools-$VERSION"

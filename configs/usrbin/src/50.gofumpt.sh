@@ -3,7 +3,10 @@ VERSION=0.7.0
 FILE="$PKGS_WD/$VERSION.gofumpt.tar.gz"
 HASH="d994902"
 
-_download_if_not "https://github.com/mvdan/gofumpt/archive/v$VERSION.tar.gz" "$FILE" "$HASH"
+download-and-check \
+  -u "https://github.com/mvdan/gofumpt/archive/v$VERSION.tar.gz" \
+  -f "$FILE" \
+  -h "$HASH"
 
 tar xf "$FILE" -C "$PKGS_LIB"
 TO="$PKGS_LIB/gofumpt-$VERSION"
