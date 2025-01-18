@@ -18,7 +18,6 @@ done
 [ -z "$FILE" ] && echo "file required" && exit 1
 [ -z "$HASH" ] && echo "hash required" && exit 1
 
-
 NEEDS=1
 if [ -e "$FILE" ]; then
   if file "$FILE" | grep -q "compressed data"; then
@@ -32,5 +31,11 @@ fi
 
 CURHASH=$(sha256sum "$FILE" | cut -c 1-7)
 [ "$CURHASH" != "$HASH" ] && echo "hash mismatch ($HASH != $CURHASH)" && exit 1
+
+if [ -n "$PKGS_LIST" ]; then
+  if echo "$URL" | grep -q "https://github.com"; then
+    echo "$URL" | cut -d "/" -f 4,5 >> "$PKGS_LIST"
+  fi
+fi
 
 exit 0

@@ -40,9 +40,11 @@ export PKGS_LIB_OFFSET="$PKGS_USR_OFFSET/$PKGS_LIB_DIR"
 export PKGS_BIN="$TARGET/$PKGS_BIN_OFFSET"
 export PKGS_LIB="$TARGET/$PKGS_LIB_OFFSET"
 export PKGS_SHARE="$TARGET/$PKGS_USR_OFFSET/share"
+export PKGS_LIST="$PKGS_SHARE/pkglist"
 export PKGS_COMP="$PKGS_SHARE/bash-completion/completions/"
 export PKGS_WD="$WORKDIR"
 mkdir -p "$PKGS_BIN" "$PKGS_LIB" "$PKGS_WD" "$PKGS_COMP" "$OUT"
+rm -f "$PKGS_LIST"
 
 export PKGS_ARCH="$ARCH"
 [ "$PKGS_ARCH" = "aarch64" ] && export PKGS_ALTARCH=arm64
