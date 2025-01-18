@@ -1,7 +1,10 @@
 #!/bin/sh -e
 VERSION=1.2.1
 FILE="$PKGS_WD/$VERSION.age.tar.gz"
-_download_if_not "https://github.com/FiloSottile/age/archive/v$VERSION.tar.gz" "$FILE"
+HASH="93bd89a"
+
+_download_if_not "https://github.com/FiloSottile/age/archive/v$VERSION.tar.gz" "$FILE" "$HASH"
+
 tar xf "$FILE" -C "$PKGS_LIB"
 TO="$PKGS_LIB/age-$VERSION"
 (cd "$TO" && go build -mod=readonly -modcacherw -ldflags "-X main.Version=$VERSION" -o . ./...)

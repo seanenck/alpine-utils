@@ -23,13 +23,19 @@ while getopts "c:s:t:w:o:f:a:" opt ; do
 done
 
 _download_if_not() {
+  needs=1
   if [ -e "$2" ]; then
     if file "$2" | grep -q "compressed data"; then
-      return
+      needs=0
     fi
   fi
-  echo "downloading: $1"
-  curl --silent -L "$1" > "$2"
+  if [ "$needs" -eq 1 ]; then
+    echo "downloading: $1"
+    curl --silent -L "$1" > "$2"
+  fi
+  hash=$(sha256sum "$2" | cut -c 1-7)
+  [ "$hash" != "$3" ] && echo "hash mismatch" && exit 1
+  return 0
 }
 
 [ -z "$DEST" ] && DEST="usrbin.img"
