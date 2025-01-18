@@ -1,4 +1,5 @@
 #!/bin/sh -e
+mkdir -p "$1/etc/ssh"
 for TYPE in ecdsa ed25519 rsa; do
   ssh-keygen \
     -q \
