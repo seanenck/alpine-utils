@@ -48,6 +48,8 @@ export PKGS_ARCH="$ARCH"
 [ "$PKGS_ARCH" = "aarch64" ] && export PKGS_ALTARCH=arm64
 export PKGS_LIBC=musl
 
+export GOOS=linux
+export GOARCH=arm64
 export PATH="$PKGS_BIN:$PATH"
 for SRC in "$SOURCES/"*.sh; do
   echo "processing: $SRC"
