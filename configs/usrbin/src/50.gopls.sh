@@ -6,7 +6,8 @@ HASH="5794ebd"
 download-and-check \
   -u "https://github.com/golang/tools/archive/gopls/v$VERSION.tar.gz" \
   -f "$FILE" \
-  -h "$HASH"
+  -h "$HASH" \
+  -t "gopls"
 
 tar xf "$FILE" -C "$PKGS_LIB"
 TO="$PKGS_LIB/tools-gopls-v$VERSION"

@@ -45,6 +45,10 @@ _version() {
     sed "s#^#$1:1: -> #"
 }
 
+check_version() {
+  _version "$1" "$2"
+}
+
 _alpine() {
   grep -q '^ID=alpine$' /etc/os-release || return
   if grep '^ID=' /etc/os-release | grep -q -v '^ID=alpine$'; then
@@ -68,13 +72,7 @@ _alpine() {
   for FILE in "/usr/local/share/" "$HOME/.config/pkgversions/"; do
     FILE="${FILE}pkglist"
     [ ! -e "$FILE" ] && echo "$FILE does not exist" && continue
-    while read line; do
-      filter=""
-      if echo "$line" | grep -q '^golang/tools$'; then
-        filter="gopls"
-      fi
-      _version "$line" "$filter"
-    done < "$FILE"
+    source "$FILE"
   done
 } | sort | cut -d ":" -f 3- > "$CACHE"
 [ ! -e "$LAST" ] && touch "$LAST"

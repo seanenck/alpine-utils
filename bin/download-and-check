@@ -2,11 +2,13 @@
 HASH=""
 FILE=""
 URL=""
-while getopts "f:u:h:" opt ; do
+TAG=""
+while getopts "f:u:h:t:" opt ; do
   case $opt in
     f) FILE="$OPTARG";;
     u) URL="$OPTARG";;
     h) HASH="$OPTARG";;
+    t) TAG="$OPTARG";;
     *)
       echo "unknown arg $opt"
       exit 1
@@ -31,10 +33,11 @@ fi
 
 CURHASH=$(sha256sum "$FILE" | cut -c 1-7)
 [ "$CURHASH" != "$HASH" ] && echo "hash mismatch ($HASH != $CURHASH)" && exit 1
+[ -n "$TAG" ] && TAG="'$TAG'"
 
 if [ -n "$PKGS_LIST" ]; then
   if echo "$URL" | grep -q "https://github.com"; then
-    echo "$URL" | cut -d "/" -f 4,5 >> "$PKGS_LIST"
+    echo "$URL" | cut -d "/" -f 4,5 | sed 's/^/check_version "/g;s/$/"/g' | sed "s/$/ $TAG/g" >> "$PKGS_LIST"
   fi
 fi
 
