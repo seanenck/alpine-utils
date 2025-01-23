@@ -9,7 +9,7 @@ export PATH="../../bin:$PATH"
 genusrbin -c "$CACHE" -s "$PWD/src" -t "$PWD/$BUILD" -w "$CACHE" -o "$BUILD" -a aarch64 -f "$IMG"
 echo "success"
 VAR="/var/alpine/usrbin"
-[ -d "$VAR" ] && echo && echo "deploying..." && doas cp "$BUILD/$IMG" "$VAR/"
+[ -d "$VAR" ] && echo && echo "deploying..."&& echo && doas cp "$BUILD/$IMG" "$VAR/"
 [ -d "$VAR" ] && find "$VAR/" -type f -mmin +60 | sort -r | tail -n +3 | doas xargs rm -f
 MOUNTTO="/usr/local"
 if mountpoint "$MOUNTTO" > /dev/null; then

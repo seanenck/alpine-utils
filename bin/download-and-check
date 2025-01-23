@@ -34,7 +34,7 @@ if [ "$NEEDS" -eq 1 ]; then
 fi
 
 CURHASH=$(sha256sum "$FILE" | cut -c 1-7)
-[ "$CURHASH" != "$HASH" ] && echo "hash mismatch ($HASH != $CURHASH)" && exit 1
+[ "$CURHASH" != "$HASH" ] && echo "hash mismatch (input: $HASH, calculated: $CURHASH)" && exit 1
 [ -n "$TAG" ] && TAG="'$TAG'"
 
 if [ -n "$PKGS_LIST" ]; then
