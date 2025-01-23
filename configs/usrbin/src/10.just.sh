@@ -1,7 +1,7 @@
 #!/bin/sh -e
-VERSION=1.38.0
+VERSION=1.39.0
 FILE="$PKGS_WD/$VERSION.just.tar.gz"
-HASH="efded3b"
+HASH="f1b9acd"
 
 download-and-check \
   -u "https://github.com/casey/just/releases/download/$VERSION/just-$VERSION-$PKGS_ARCH-unknown-linux-$PKGS_LIBC.tar.gz" \
