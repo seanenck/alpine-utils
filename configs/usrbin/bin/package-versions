@@ -16,10 +16,13 @@ while getopts "f" opt ; do
 done
 
 if [ "$FORCE" -eq 0 ] && [ -e "$LAST" ]; then
-  if [ "$(find "$LAST" -type f -mmin -60 | wc -l)" -gt 0 ]; then
-    echo "recent update check completed..."
-    exit 0
-  fi
+  for FILE in "$LAST" "$CACHE"; do
+    [ ! -e "$FILE" ] && continue
+    if [ "$(find "$FILE" -type f -mmin -60 | wc -l)" -gt 0 ]; then
+      echo "recent update check completed..."
+      exit 0
+    fi
+  done
 fi
 
 _header() {
