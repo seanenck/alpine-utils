@@ -42,6 +42,7 @@ _version() {
     grep -v "release\." | \
     grep -v 'rc[0-9]' | \
     grep -v "beta" | \
+    grep -v "pre" | \
     head -n 1 | \
     sed 's/[^0-9\. ]*//g' | \
     sed 's/^\s*//g' | \
