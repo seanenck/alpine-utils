@@ -1,7 +1,7 @@
 #!/bin/sh -e
-VERSION=2024.1.1
+VERSION=2025.1
 FILE="$PKGS_WD/$VERSION.staticcheck.tar.gz"
-HASH="fa0e530"
+HASH="314e785"
 
 download-and-check \
   -u "https://github.com/dominikh/go-tools/archive/$VERSION.tar.gz" \

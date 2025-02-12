@@ -1,6 +1,6 @@
 #!/bin/sh -e
-VERSION=1.23.6
-HASH="561c780"
+VERSION=1.24.0
+HASH="c3fa6d1"
 FILE="$PKGS_WD/$VERSION.go.tar.gz"
 
 download-and-check \
