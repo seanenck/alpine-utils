@@ -5,7 +5,10 @@ _nvim_plugin() {
   DIR="$PKGS_WD/$(basename "$1").git"
   [ ! -d "$DIR" ] && git clone --quiet "https://github.com/$1" "$DIR"
   git -C "$DIR" pull --quiet
-  cp -r "$DIR" "$NVIM_PLUG/$(basename "$1")"
+  TO="$NVIM_PLUG/$(basename "$1")"
+  cp -r "$DIR" "$TO"
+  rm -rf "$TO/.git"
+  git -C "$DIR" log -n 1 --format=oneline > "$TO/.githash"
 }
 
 _nvim_plugin "vim-airline/vim-airline"
