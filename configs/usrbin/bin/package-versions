@@ -72,10 +72,12 @@ _alpine() {
 }
 
 {
+  echo "alpine: latest" >&2
   _alpine
   for FILE in "/usr/local/share/" "$HOME/.config/pkgversions/"; do
     FILE="${FILE}pkglist"
     [ ! -e "$FILE" ] && echo "$FILE does not exist" && continue
+    echo "config: $FILE" >&2
     source "$FILE"
   done
 } | sort | cut -d ":" -f 3- > "$CACHE"

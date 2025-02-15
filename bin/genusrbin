@@ -59,4 +59,6 @@ for SRC in "$SOURCES/"*.sh; do
   "$SRC"
 done
 
+sort -o "$PKGS_LIST" "$PKGS_LIST"
+
 (cd "$TARGET" && mksquashfs "$TARGET/$PKGS_USR_OFFSET" "$DEST")
