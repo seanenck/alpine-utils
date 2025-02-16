@@ -1,7 +1,7 @@
 #!/bin/sh -e
-VERSION=1.6.0
+VERSION=1.7.0
 FILE="$PKGS_WD/$VERSION.revive.tar.gz"
-HASH="eb732f7"
+HASH="2ea41ab"
 
 download-and-check \
   -u "https://github.com/mgechev/revive/archive/v$VERSION.tar.gz"\
