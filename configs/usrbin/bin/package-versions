@@ -1,6 +1,7 @@
 #!/bin/sh -e
 CACHE="$HOME/.cache/pkgversions"
 mkdir -p "$CACHE"
+RUN="$CACHE/run"
 CACHE="$CACHE/status"
 LAST="$CACHE.last"
 FORCE=0
@@ -15,14 +16,11 @@ while getopts "f" opt ; do
   esac
 done
 
-if [ "$FORCE" -eq 0 ] && [ -e "$LAST" ]; then
-  for FILE in "$LAST" "$CACHE"; do
-    [ ! -e "$FILE" ] && continue
-    if [ "$(find "$FILE" -type f -mmin -60 | wc -l)" -gt 0 ]; then
-      echo "recent update check completed..."
-      exit 0
-    fi
-  done
+if [ "$FORCE" -eq 0 ] && [ -e "$RUN" ]; then
+  if [ "$(find "$RUN" -type f -mmin -60 | wc -l)" -gt 0 ]; then
+    echo "recent update check completed..."
+    exit 0
+  fi
 fi
 
 _header() {
@@ -87,9 +85,10 @@ if ! diff -u "$LAST" "$CACHE"; then
   read yesno
   case "$yesno" in
     "Y" | "y")
+      touch "$RUN"
       mv "$CACHE" "$LAST"
       ;;
   esac
 else
-  touch "$LAST"
+  touch "$RUN"
 fi
