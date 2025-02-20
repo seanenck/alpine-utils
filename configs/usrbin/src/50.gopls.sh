@@ -1,7 +1,7 @@
 #!/bin/sh -e
-VERSION=0.17.1
+VERSION=0.18.0
 FILE="$PKGS_WD/$VERSION.gopls.tar.gz"
-HASH="5794ebd"
+HASH="2fec859"
 
 download-and-check \
   -u "https://github.com/golang/tools/archive/gopls/v$VERSION.tar.gz" \
