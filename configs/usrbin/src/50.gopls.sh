@@ -11,6 +11,12 @@ download-and-check \
 
 tar xf "$FILE" -C "$PKGS_LIB"
 TO="$PKGS_LIB/tools-gopls-v$VERSION"
+MODERNIZE="$PKGS_BIN/gomodernize"
+{
+  echo "#!/bin/sh"
+  echo "go run golang.org/x/tools/gopls/internal/analysis/modernize/cmd/modernize@v$VERSION -test ./... 2>&1"
+} > "$MODERNIZE"
+chmod 755 "$MODERNIZE"
 (cd "$TO/gopls" && go build -buildmode=pie -mod=readonly -modcacherw -ldflags "-compressdwarf=false" -o gopls)
 (cd "$TO/gopls" && install -Dm755 "gopls" "$PKGS_BIN/gopls")
 rm -rf "$TO"
