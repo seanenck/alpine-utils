@@ -10,7 +10,7 @@ download-and-check \
 
 tar xf "$FILE" -C "$PKGS_LIB"
 TO="$PKGS_LIB/lockbox-$VERSION"
-(cd "$TO" && just --quiet)
+(cd "$TO" && just --quiet version=$VERSION)
 (cd "$TO" && install -Dm755 "target/lb" "$PKGS_BIN/lb")
 (cd "$TO" && SHELL=bash target/lb completions > "$PKGS_COMP/lb")
 rm -rf "$TO"
