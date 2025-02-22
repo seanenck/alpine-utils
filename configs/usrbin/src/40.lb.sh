@@ -1,7 +1,7 @@
 #!/bin/sh -e
-VERSION=1.4.1
+VERSION=1.4.2
 FILE="$PKGS_WD/$VERSION.lb.tar.gz"
-HASH="35a2120"
+HASH="982db04"
 
 download-and-check \
   -u "https://github.com/seanenck/lockbox/archive/v$VERSION.tar.gz" \
