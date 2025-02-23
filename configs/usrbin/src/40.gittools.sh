@@ -1,7 +1,7 @@
 #!/bin/sh -e
-VERSION=0.1.8
+VERSION=0.2.0
 FILE="$PKGS_WD/$VERSION.gittools.tar.gz"
-HASH="1a9f8b1"
+HASH="50a872e"
 
 download-and-check \
   -u "https://github.com/seanenck/git-tools/archive/v$VERSION.tar.gz" \
